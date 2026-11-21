@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8c959f"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="420" rx="14" fill="#ffffff"/>
+
+  <!-- client -->
+  <text x="30" y="40" font-size="13" font-weight="600" fill="#57606a" letter-spacing="0.5">CLIENT</text>
+  <rect x="30" y="58" width="150" height="112" rx="10" fill="#f6f8fa" stroke="#d0d7de"/>
+  <g font-size="12" fill="#57606a">
+    <text x="46" y="84" font-size="14" font-weight="600" fill="#1f2328">POST /v1/…</text>
+    <text x="46" y="106">JSON body</text>
+    <text x="46" y="124">Idempotency-Key</text>
+    <text x="46" y="142">X-Request-ID</text>
+  </g>
+
+  <!-- http layer -->
+  <text x="220" y="40" font-size="13" font-weight="600" fill="#57606a" letter-spacing="0.5">HTTP LAYER</text>
+  <g font-size="12" fill="#57606a">
+    <rect x="220" y="58" width="190" height="52" rx="10" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="236" y="80" font-size="14" font-weight="600" fill="#1f2328">Request context</text>
+    <text x="236" y="98">request id, JSON access log</text>
+    <rect x="220" y="122" width="190" height="52" rx="10" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="236" y="144" font-size="14" font-weight="600" fill="#1f2328">Strict validation</text>
+    <text x="236" y="162">pydantic, integers only</text>
+    <rect x="220" y="186" width="190" height="52" rx="10" fill="#ffebe9" stroke="#ff8182"/>
+    <text x="236" y="208" font-size="14" font-weight="600" fill="#1f2328">Problem details</text>
+    <text x="236" y="226">RFC 9457, stable codes</text>
+  </g>
+
+  <!-- transaction -->
+  <text x="450" y="40" font-size="13" font-weight="600" fill="#57606a" letter-spacing="0.5">ONE WRITE TRANSACTION</text>
+  <rect x="450" y="58" width="260" height="250" rx="10" fill="#ddf4ff" stroke="#54aeff"/>
+  <g font-size="12" fill="#57606a">
+    <text x="468" y="86" font-size="14" font-weight="600" fill="#1f2328">1. Idempotency key</text>
+    <text x="468" y="104">seen: replay stored response</text>
+    <text x="468" y="136" font-size="14" font-weight="600" fill="#1f2328">2. Ledger rules</text>
+    <text x="468" y="154">balanced legs, one currency,</text>
+    <text x="468" y="170">available = balance − holds</text>
+    <text x="468" y="202" font-size="14" font-weight="600" fill="#1f2328">3. Post</text>
+    <text x="468" y="220">append entries with balance_after,</text>
+    <text x="468" y="236">update cached balance</text>
+    <text x="468" y="268" font-size="14" font-weight="600" fill="#1f2328">4. Store response under key</text>
+    <text x="468" y="286">all of it commits, or none of it</text>
+  </g>
+
+  <!-- tables -->
+  <text x="750" y="40" font-size="13" font-weight="600" fill="#57606a" letter-spacing="0.5">TABLES</text>
+  <g font-size="13" fill="#1f2328">
+    <rect x="750" y="58" width="180" height="38" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="766" y="82">accounts</text>
+    <rect x="750" y="104" width="180" height="38" rx="8" fill="#fff8c5" stroke="#d4a72c"/>
+    <text x="766" y="128">transactions <tspan font-size="11" fill="#9a6700">append-only</tspan></text>
+    <rect x="750" y="150" width="180" height="38" rx="8" fill="#fff8c5" stroke="#d4a72c"/>
+    <text x="766" y="174">entries <tspan font-size="11" fill="#9a6700">append-only</tspan></text>
+    <rect x="750" y="196" width="180" height="38" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="766" y="220">holds</text>
+    <rect x="750" y="242" width="180" height="38" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="766" y="266">idempotency_keys</text>
+  </g>
+
+  <g stroke="#8c959f" stroke-width="1.6" fill="none" marker-end="url(#arrow)">
+    <path d="M180,96 L216,84"/>
+    <path d="M315,110 L315,118"/>
+    <path d="M410,148 L446,148"/>
+    <path d="M710,183 L746,183"/>
+  </g>
+  <g stroke="#ff8182" stroke-width="1.4" fill="none" stroke-dasharray="4 3" marker-end="url(#arrow)">
+    <path d="M450,212 L414,212"/>
+  </g>
+  <text x="236" y="256" font-size="11" fill="#cf222e">a refused write rolls back fully</text>
+
+  <!-- audit -->
+  <rect x="450" y="326" width="480" height="52" rx="10" fill="#dafbe1" stroke="#4ac26b"/>
+  <text x="468" y="348" font-size="14" font-weight="600" fill="#1f2328">python -m ledger check</text>
+  <text x="468" y="366" font-size="12" fill="#57606a">recomputes every balance, sum, reversal and capture from the raw tables</text>
+  <g stroke="#8c959f" stroke-width="1.6" fill="none" marker-end="url(#arrow)">
+    <path d="M840,322 L840,284"/>
+  </g>
+
+  <text x="30" y="404" font-size="12" fill="#57606a">Money is only moved, never created: every transaction's legs sum to zero, and posted entries are never edited. Corrections are new transactions.</text>
+</svg>
