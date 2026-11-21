@@ -1,4 +1,4 @@
-"""A double-entry ledger service: accounts, transfers, holds and reversals over HTTP."""
+"""A double-entry ledger service: accounts, transfers, holds, reversals, idempotent writes."""
 
 from .api import create_app
 from .check import check
